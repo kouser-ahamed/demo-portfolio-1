@@ -63,6 +63,12 @@ export default function Home() {
     "Modern responsive design",
   ];
 
+  const socialLinks = [
+    { label: "GitHub", href: "https://github.com/", tone: "from-slate-950 to-slate-700" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/", tone: "from-sky-600 to-cyan-400" },
+    { label: "Dribbble", href: "https://dribbble.com/", tone: "from-pink-500 to-rose-300" },
+  ];
+
   return (
     <motion.main
       className="relative overflow-hidden"
@@ -70,7 +76,7 @@ export default function Home() {
       animate="visible"
       variants={stagger}
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.20),_transparent_32%),radial-gradient(circle_at_top_right,_rgba(59,130,246,0.18),_transparent_28%),linear-gradient(180deg,_rgba(10,10,10,0.98),_rgba(12,12,18,1))]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.22),_transparent_28%),radial-gradient(circle_at_top_right,_rgba(236,72,153,0.16),_transparent_24%),radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.16),_transparent_26%),linear-gradient(180deg,_rgba(10,10,10,0.98),_rgba(12,12,18,1))]" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/10" />
 
       <section className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-6 sm:px-8 lg:px-10">
@@ -99,7 +105,7 @@ export default function Home() {
           </nav>
         </motion.header>
 
-        <div className="grid flex-1 items-center gap-12 py-12 lg:grid-cols-[1.25fr_0.75fr] lg:py-16">
+        <div className="grid flex-1 items-center gap-12 py-12 lg:grid-cols-[1.18fr_0.82fr] lg:py-16">
           <motion.div className="space-y-8" variants={stagger}>
             <motion.div
               className="inline-flex items-center gap-3 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm text-emerald-200"
@@ -151,6 +157,43 @@ export default function Home() {
               </motion.a>
             </motion.div>
 
+            <motion.div className="grid gap-4 sm:grid-cols-[1.15fr_0.85fr]" variants={fadeUp} transition={{ duration: 0.45, delay: 0.16 }}>
+              <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
+                <p className="text-sm uppercase tracking-[0.3em] text-white/45">Social</p>
+                <div className="mt-4 flex flex-wrap gap-3">
+                  {socialLinks.map((link) => (
+                    <motion.a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80 transition hover:text-white"
+                      whileHover={shouldReduceMotion ? undefined : { scale: 1.04, y: -2 }}
+                    >
+                      {link.label}
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
+
+              <motion.div
+                className="rounded-[1.75rem] border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-transparent p-5 backdrop-blur-sm"
+                whileHover={shouldReduceMotion ? undefined : { y: -4 }}
+              >
+                <p className="text-sm uppercase tracking-[0.3em] text-white/45">Resume</p>
+                <p className="mt-3 text-sm leading-6 text-white/70">
+                  A simple resume card is ready for your actual file, experience, and links.
+                </p>
+                <a
+                  href="/resume.txt"
+                  download
+                  className="mt-4 inline-flex items-center justify-center rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/15"
+                >
+                  Download resume
+                </a>
+              </motion.div>
+            </motion.div>
+
             <div className="grid gap-4 sm:grid-cols-3">
               {[
                 ["3+", "featured projects"],
@@ -177,6 +220,7 @@ export default function Home() {
               className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/70 p-6 shadow-2xl shadow-black/30 backdrop-blur-2xl"
               whileHover={shouldReduceMotion ? undefined : { y: -4 }}
             >
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-300/70 to-transparent" />
               <div className="flex items-center justify-between border-b border-white/10 pb-4">
                 <div>
                   <p className="text-xs uppercase tracking-[0.3em] text-white/45">Profile</p>
@@ -188,6 +232,17 @@ export default function Home() {
               </div>
 
               <div className="space-y-5 py-5">
+                <motion.div
+                  className="rounded-[1.5rem] border border-white/10 bg-gradient-to-r from-emerald-400/10 via-sky-400/10 to-pink-400/10 p-4"
+                  variants={fadeUp}
+                  transition={{ duration: 0.45 }}
+                >
+                  <p className="text-sm uppercase tracking-[0.3em] text-white/40">Now building</p>
+                  <p className="mt-2 text-base text-white/85">
+                    Bold portfolio experiences with a clean structure and expressive motion.
+                  </p>
+                </motion.div>
+
                 <div className="flex items-center gap-4 rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
                   <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full border border-white/15 bg-slate-900">
                     <Image
@@ -383,6 +438,60 @@ export default function Home() {
                 >
                   {item}
                 </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </motion.section>
+
+        <motion.section
+          className="grid gap-6 py-10 lg:grid-cols-[0.85fr_1.15fr]"
+          variants={stagger}
+          whileInView="visible"
+          initial="hidden"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <motion.div
+            className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-950/90 via-slate-900/70 to-white/5 p-6 sm:p-8"
+            variants={cardLift}
+            whileHover={shouldReduceMotion ? undefined : { y: -4 }}
+          >
+            <p className="text-sm uppercase tracking-[0.35em] text-white/45">Resume card</p>
+            <h2 className="mt-2 text-3xl font-semibold text-white">Simple, portable, and ready to swap</h2>
+            <p className="mt-4 text-white/70 leading-7">
+              This card is a clean placeholder for your actual resume file. Replace the download
+              target with your PDF when you’re ready to publish.
+            </p>
+            <a
+              href="/resume.txt"
+              download
+              className="mt-6 inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:bg-emerald-100"
+            >
+              Download resume
+            </a>
+          </motion.div>
+
+          <motion.div
+            className="rounded-[2rem] border border-white/10 bg-white/5 p-6 sm:p-8"
+            variants={cardLift}
+            whileHover={shouldReduceMotion ? undefined : { y: -4 }}
+          >
+            <p className="text-sm uppercase tracking-[0.35em] text-white/45">Social links</p>
+            <h2 className="mt-2 text-3xl font-semibold text-white">Connect across the web</h2>
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              {socialLinks.map((link) => (
+                <motion.a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`group rounded-[1.5rem] border border-white/10 bg-gradient-to-br ${link.tone} p-5 text-white shadow-lg shadow-black/20 transition`}
+                  whileHover={shouldReduceMotion ? undefined : { y: -4, scale: 1.01 }}
+                >
+                  <p className="text-sm uppercase tracking-[0.3em] text-white/70">{link.label}</p>
+                  <p className="mt-3 text-sm leading-6 text-white/85 group-hover:text-white">
+                    View profile
+                  </p>
+                </motion.a>
               ))}
             </div>
           </motion.div>

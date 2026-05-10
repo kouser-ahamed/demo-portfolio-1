@@ -1,0 +1,22 @@
+Alex Morgan
+Front-End Developer
+
+Summary
+Front-end developer focused on polished portfolio websites, landing pages, and motion-aware UI systems.
+
+Skills
+- JavaScript
+- React
+- Next.js
+- Tailwind CSS
+- Framer Motion
+- Responsive Design
+- Accessibility
+
+Experience
+- Built modern portfolio and landing page interfaces.
+- Designed component-driven front-end systems.
+- Created responsive layouts with animated interactions.
+
+Contact
+hello@alexmorgan.dev
