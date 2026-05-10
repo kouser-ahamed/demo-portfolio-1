@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
 const fadeUp = {
@@ -24,49 +25,16 @@ const cardLift = {
 export default function Home() {
   const shouldReduceMotion = useReducedMotion();
 
-  const featuredProjects = [
-    {
-      title: "Studio Flow",
-      category: "Brand website",
-      description:
-        "A sleek landing page built to turn visitors into leads with clear messaging, subtle motion, and strong conversion cues.",
-    },
-    {
-      title: "Pulse Dashboard",
-      category: "Web app UI",
-      description:
-        "A data-rich interface for tracking engagement, campaign performance, and product metrics in one place.",
-    },
-    {
-      title: "Northstar Notes",
-      category: "Personal product",
-      description:
-        "A minimal note-taking concept focused on fast capture, calm organization, and responsive interactions.",
-    },
+  const navLinks = [
+    { label: "About", href: "/about" },
+    { label: "Projects", href: "/projects" },
+    { label: "Contact", href: "/contact" },
   ];
 
-  const skills = [
-    "JavaScript",
-    "React",
-    "Next.js",
-    "Tailwind CSS",
-    "UI Design",
-    "Responsive Layouts",
-    "Accessibility",
-    "Performance",
-  ];
-
-  const services = [
-    "Front-end development",
-    "Portfolio and landing pages",
-    "Component-driven UI systems",
-    "Modern responsive design",
-  ];
-
-  const socialLinks = [
-    { label: "GitHub", href: "https://github.com/", tone: "from-slate-950 to-slate-700" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/", tone: "from-sky-600 to-cyan-400" },
-    { label: "Dribbble", href: "https://dribbble.com/", tone: "from-pink-500 to-rose-300" },
+  const highlights = [
+    ["3 pages", "clean route structure"],
+    ["Motion", "Framer Motion interactions"],
+    ["Tailwind", "modern responsive styling"],
   ];
 
   return (
@@ -93,15 +61,11 @@ export default function Home() {
           </div>
 
           <nav className="hidden items-center gap-6 text-sm text-white/70 md:flex">
-            <a className="transition hover:text-white" href="#projects">
-              Projects
-            </a>
-            <a className="transition hover:text-white" href="#skills">
-              Skills
-            </a>
-            <a className="transition hover:text-white" href="#contact">
-              Contact
-            </a>
+            {navLinks.map((link) => (
+              <Link key={link.label} className="transition hover:text-white" href={link.href}>
+                {link.label}
+              </Link>
+            ))}
           </nav>
         </motion.header>
 
@@ -132,74 +96,32 @@ export default function Home() {
                 variants={fadeUp}
                 transition={{ duration: 0.55, delay: 0.1 }}
               >
-                This demo portfolio is designed to feel modern, bold, and easy to scan. It gives
-                you a strong starting point for showcasing projects, skills, and contact details in
-                one focused page.
+                This demo portfolio is now split into separate pages for your bio, projects, and
+                contact details while keeping the same bold animated style.
               </motion.p>
             </motion.div>
 
             <motion.div className="flex flex-col gap-3 sm:flex-row" variants={fadeUp} transition={{ duration: 0.45, delay: 0.12 }}>
               <motion.a
-                href="#projects"
+                href="/projects"
                 className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:bg-emerald-100"
                 whileHover={shouldReduceMotion ? undefined : { scale: 1.03, y: -2 }}
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
               >
-                View selected work
+                View projects
               </motion.a>
               <motion.a
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10"
                 whileHover={shouldReduceMotion ? undefined : { scale: 1.03, y: -2 }}
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
               >
-                Let’s talk
+                Contact me
               </motion.a>
             </motion.div>
 
-            <motion.div className="grid gap-4 sm:grid-cols-[1.15fr_0.85fr]" variants={fadeUp} transition={{ duration: 0.45, delay: 0.16 }}>
-              <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
-                <p className="text-sm uppercase tracking-[0.3em] text-white/45">Social</p>
-                <div className="mt-4 flex flex-wrap gap-3">
-                  {socialLinks.map((link) => (
-                    <motion.a
-                      key={link.label}
-                      href={link.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80 transition hover:text-white"
-                      whileHover={shouldReduceMotion ? undefined : { scale: 1.04, y: -2 }}
-                    >
-                      {link.label}
-                    </motion.a>
-                  ))}
-                </div>
-              </div>
-
-              <motion.div
-                className="rounded-[1.75rem] border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-transparent p-5 backdrop-blur-sm"
-                whileHover={shouldReduceMotion ? undefined : { y: -4 }}
-              >
-                <p className="text-sm uppercase tracking-[0.3em] text-white/45">Resume</p>
-                <p className="mt-3 text-sm leading-6 text-white/70">
-                  A simple resume card is ready for your actual file, experience, and links.
-                </p>
-                <a
-                  href="/resume.txt"
-                  download
-                  className="mt-4 inline-flex items-center justify-center rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/15"
-                >
-                  Download resume
-                </a>
-              </motion.div>
-            </motion.div>
-
-            <div className="grid gap-4 sm:grid-cols-3">
-              {[
-                ["3+", "featured projects"],
-                ["5", "core skills"],
-                ["100%", "responsive"],
-              ].map(([value, label]) => (
+            <motion.div className="grid gap-4 sm:grid-cols-3" variants={fadeUp} transition={{ duration: 0.45, delay: 0.16 }}>
+              {highlights.map(([value, label]) => (
                 <motion.div
                   key={label}
                   className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm"
@@ -211,7 +133,7 @@ export default function Home() {
                   <p className="mt-1 text-sm text-white/55">{label}</p>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
           <motion.aside className="relative" variants={cardLift} transition={{ duration: 0.5 }}>
@@ -293,209 +215,6 @@ export default function Home() {
             </motion.div>
           </motion.aside>
         </div>
-
-        <motion.section
-          id="projects"
-          className="space-y-6 py-10 sm:py-14"
-          variants={stagger}
-          whileInView="visible"
-          initial="hidden"
-          viewport={{ once: true, amount: 0.25 }}
-        >
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <p className="text-sm uppercase tracking-[0.35em] text-white/45">Selected work</p>
-              <h2 className="mt-2 text-3xl font-semibold text-white">Projects with a strong first impression</h2>
-            </div>
-          </div>
-
-          <div className="grid gap-4 lg:grid-cols-3">
-            {featuredProjects.map((project) => (
-              <motion.article
-                key={project.title}
-                className="group rounded-[1.75rem] border border-white/10 bg-white/5 p-6 transition duration-300 hover:-translate-y-1 hover:border-emerald-400/30 hover:bg-white/8"
-                variants={cardLift}
-                transition={{ duration: 0.45 }}
-                whileHover={shouldReduceMotion ? undefined : { y: -6, rotate: -0.35 }}
-              >
-                <p className="text-sm uppercase tracking-[0.3em] text-emerald-200/70">
-                  {project.category}
-                </p>
-                <h3 className="mt-4 text-2xl font-semibold text-white">{project.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-white/65">{project.description}</p>
-                <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4 text-sm text-white/55">
-                  <span>UI design</span>
-                  <span className="transition group-hover:text-white">Case study</span>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </motion.section>
-
-        <motion.section
-          className="grid gap-6 py-10 lg:grid-cols-[0.9fr_1.1fr]"
-          variants={stagger}
-          whileInView="visible"
-          initial="hidden"
-          viewport={{ once: true, amount: 0.25 }}
-        >
-          <motion.div id="skills" className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6" variants={cardLift} whileHover={shouldReduceMotion ? undefined : { y: -4 }}>
-            <p className="text-sm uppercase tracking-[0.35em] text-white/45">Skills</p>
-            <h2 className="mt-2 text-2xl font-semibold text-white">Tools and strengths</h2>
-
-            <div className="mt-6 flex flex-wrap gap-3">
-              {skills.map((skill) => (
-                <motion.span
-                  key={skill}
-                  className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80"
-                  whileHover={shouldReduceMotion ? undefined : { scale: 1.04, y: -2 }}
-                >
-                  {skill}
-                </motion.span>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div className="rounded-[1.75rem] border border-white/10 bg-slate-950/60 p-6" variants={cardLift} whileHover={shouldReduceMotion ? undefined : { y: -4 }}>
-            <p className="text-sm uppercase tracking-[0.35em] text-white/45">Services</p>
-            <h2 className="mt-2 text-2xl font-semibold text-white">What this portfolio can highlight</h2>
-
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              {services.map((service) => (
-                <motion.div
-                  key={service}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-4 text-white/80"
-                  whileHover={shouldReduceMotion ? undefined : { y: -3, scale: 1.01 }}
-                >
-                  {service}
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </motion.section>
-
-        <motion.section
-          id="about"
-          className="grid gap-6 py-10 lg:grid-cols-[1.05fr_0.95fr]"
-          variants={stagger}
-          whileInView="visible"
-          initial="hidden"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          <motion.div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 sm:p-8" variants={cardLift} whileHover={shouldReduceMotion ? undefined : { y: -4 }}>
-            <p className="text-sm uppercase tracking-[0.35em] text-white/45">About</p>
-            <h2 className="mt-2 text-3xl font-semibold text-white">A quick intro to the person behind the screen</h2>
-            <p className="mt-4 max-w-2xl text-white/70 leading-7">
-              I design and build portfolio websites, product landing pages, and component-rich UI
-              systems. My focus is on clear structure, readable typography, and motion that helps
-              the page feel alive without getting in the way.
-            </p>
-
-            <div className="mt-6 grid gap-4 sm:grid-cols-3">
-              {[
-                ["Experience", "2+ years"],
-                ["Specialty", "Front-end UI"],
-                ["Style", "Bold + clean"],
-              ].map(([label, value]) => (
-                <div key={label} className="rounded-2xl border border-white/10 bg-slate-950/50 p-4">
-                  <p className="text-xs uppercase tracking-[0.25em] text-white/40">{label}</p>
-                  <p className="mt-2 text-sm text-white/85">{value}</p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div className="rounded-[2rem] border border-white/10 bg-slate-950/60 p-6 sm:p-8" variants={cardLift} whileHover={shouldReduceMotion ? undefined : { y: -4 }}>
-            <div className="flex items-center gap-5 border-b border-white/10 pb-5">
-              <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full border border-white/15 bg-slate-900 sm:h-28 sm:w-28">
-                <Image
-                  src="/profile-picture.svg"
-                  alt="Profile picture of Alex Morgan"
-                  fill
-                  priority
-                  className="object-cover"
-                />
-              </div>
-              <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-white/40">Profile picture</p>
-                <h3 className="mt-2 text-2xl font-semibold text-white">Alex Morgan</h3>
-                <p className="mt-2 text-sm leading-6 text-white/70">
-                  Front-end developer building polished, motion-aware web experiences.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-5 space-y-3">
-              {[
-                "I like clean dashboards, distinctive hero sections, and strong CTA design.",
-                "I use motion to guide attention and make interactions feel intentional.",
-                "I keep layouts responsive so the experience works well on every screen size.",
-              ].map((item) => (
-                <motion.div
-                  key={item}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-6 text-white/75"
-                  whileHover={shouldReduceMotion ? undefined : { x: 4 }}
-                >
-                  {item}
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </motion.section>
-
-        <motion.section
-          className="grid gap-6 py-10 lg:grid-cols-[0.85fr_1.15fr]"
-          variants={stagger}
-          whileInView="visible"
-          initial="hidden"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          <motion.div
-            className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-950/90 via-slate-900/70 to-white/5 p-6 sm:p-8"
-            variants={cardLift}
-            whileHover={shouldReduceMotion ? undefined : { y: -4 }}
-          >
-            <p className="text-sm uppercase tracking-[0.35em] text-white/45">Resume card</p>
-            <h2 className="mt-2 text-3xl font-semibold text-white">Simple, portable, and ready to swap</h2>
-            <p className="mt-4 text-white/70 leading-7">
-              This card is a clean placeholder for your actual resume file. Replace the download
-              target with your PDF when you’re ready to publish.
-            </p>
-            <a
-              href="/resume.txt"
-              download
-              className="mt-6 inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:bg-emerald-100"
-            >
-              Download resume
-            </a>
-          </motion.div>
-
-          <motion.div
-            className="rounded-[2rem] border border-white/10 bg-white/5 p-6 sm:p-8"
-            variants={cardLift}
-            whileHover={shouldReduceMotion ? undefined : { y: -4 }}
-          >
-            <p className="text-sm uppercase tracking-[0.35em] text-white/45">Social links</p>
-            <h2 className="mt-2 text-3xl font-semibold text-white">Connect across the web</h2>
-            <div className="mt-6 grid gap-4 sm:grid-cols-3">
-              {socialLinks.map((link) => (
-                <motion.a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`group rounded-[1.5rem] border border-white/10 bg-gradient-to-br ${link.tone} p-5 text-white shadow-lg shadow-black/20 transition`}
-                  whileHover={shouldReduceMotion ? undefined : { y: -4, scale: 1.01 }}
-                >
-                  <p className="text-sm uppercase tracking-[0.3em] text-white/70">{link.label}</p>
-                  <p className="mt-3 text-sm leading-6 text-white/85 group-hover:text-white">
-                    View profile
-                  </p>
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
-        </motion.section>
 
         <motion.section
           id="contact"
